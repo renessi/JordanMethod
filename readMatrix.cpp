@@ -11,16 +11,21 @@ void readMatrix(const char* fileName, const size_t matrixSize,
         for (size_t i = 0; i < matrixSize; ++i) {
             for (size_t j = 0; j < matrixSize; ++j) {
                 if (!(input >> matrix[i][j])) {
-                    std::cerr << "Can not read from file " << fileName << std::endl;
+                    std::cerr << "Can not read from file." << fileName << std::endl;
                     input.close();
                     exit(1);
                 }
             }
         }
+        if (!input.eof()) {
+            std::cerr << "The file contains unnecessary data." << fileName << std::endl;
+            input.close();
+            exit(1);
+        }
         input.close();
     }
     else {
-        std::cerr << "Can not open file " << fileName << std::endl;
+        std::cerr << "Can not open file." << fileName << std::endl;
         exit(1);
     }
 }
