@@ -1,13 +1,13 @@
 #ifndef JORDANMETHOD_DATACREATION_H
 #define JORDANMETHOD_DATACREATION_H
 
-void readMatrix(const char* fileName, std::vector<std::vector<double>>& matrix);
+void readMatrix(const char* fileName, std::vector<std::vector<double>>& A);
 
-void createMatrixByFormula(std::vector<std::vector<double>>& matrix);
+void createMatrixByFormula(std::vector<std::vector<double>>& A);
 
 void getRightAnswer(std::vector<double>& rightAnswer);
 
-void fillInB(const std::vector<std::vector<double>>& matrix, std::vector<double>& b,
+void fillInB(const std::vector<std::vector<double>>& A, std::vector<double>& b,
              const std::vector<double>& rightAnswer);
 
 #endif //JORDANMETHOD_DATACREATION_H
