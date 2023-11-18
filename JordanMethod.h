@@ -1,7 +1,7 @@
 #ifndef JORDANMETHOD_JORDANMETHOD_H
 #define JORDANMETHOD_JORDANMETHOD_H
 
-void Jordan(size_t n, std::vector<std::vector<double>>& A,
+bool Jordan(size_t n, std::vector<std::vector<double>>& A,
              std::vector<double>& b, std::vector<double>& x);
 
 void printResult(const std::vector<double>& x, size_t m);

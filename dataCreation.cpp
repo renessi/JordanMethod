@@ -4,7 +4,8 @@
 #include "dataCreation.h"
 
 double formulaToCreateMatrix(size_t i, size_t j) {
-    return (double) (i + j);
+    int x = (int) i, y = (int) j;
+    return (double) (x + y);
 }
 
 void readMatrix(const char* fileName, std::vector<std::vector<double>>& A) {
