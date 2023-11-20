@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/gera/Documents/JordanMethod/JordanMethod/JordanMethod.h
+
+/home/gera/Documents/JordanMethod/JordanMethod/dataCreation.cpp
+iostream
+-
+fstream
+-
+vector
+-
+dataCreation.h
+/home/gera/Documents/JordanMethod/JordanMethod/dataCreation.h
+
+/home/gera/Documents/JordanMethod/JordanMethod/dataCreation.h
+iostream
+-
+vector
+-
+
+/home/gera/Documents/JordanMethod/JordanMethod/main.cpp
+iostream
+-
+vector
+-
+ctime
+-
+dataCreation.h
+/home/gera/Documents/JordanMethod/JordanMethod/dataCreation.h
+JordanMethod.h
+/home/gera/Documents/JordanMethod/JordanMethod/JordanMethod.h
+

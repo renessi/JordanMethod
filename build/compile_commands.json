@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/gera/Documents/JordanMethod/JordanMethod/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/JordanMethod.dir/main.cpp.o -c /home/gera/Documents/JordanMethod/JordanMethod/main.cpp",
+  "file": "/home/gera/Documents/JordanMethod/JordanMethod/main.cpp"
+},
+{
+  "directory": "/home/gera/Documents/JordanMethod/JordanMethod/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/JordanMethod.dir/dataCreation.cpp.o -c /home/gera/Documents/JordanMethod/JordanMethod/dataCreation.cpp",
+  "file": "/home/gera/Documents/JordanMethod/JordanMethod/dataCreation.cpp"
+},
+{
+  "directory": "/home/gera/Documents/JordanMethod/JordanMethod/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/JordanMethod.dir/JordanMethod.cpp.o -c /home/gera/Documents/JordanMethod/JordanMethod/JordanMethod.cpp",
+  "file": "/home/gera/Documents/JordanMethod/JordanMethod/JordanMethod.cpp"
+}
+]

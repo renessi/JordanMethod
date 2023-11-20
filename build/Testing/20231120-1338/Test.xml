@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++"
+	BuildStamp="20231120-1338-Experimental"
+	Name="gera-VirtualBox"
+	Generator="ctest-3.19.6"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="9.4.0"
+	OSName="Linux"
+	Hostname="gera-VirtualBox"
+	OSRelease="5.15.0-73-generic"
+	OSVersion="#80~20.04.1-Ubuntu SMP Wed May 17 14:58:14 UTC 2023"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="140"
+	ProcessorCacheSize="12288"
+	NumberOfLogicalCPU="2"
+	NumberOfPhysicalCPU="2"
+	TotalVirtualMemory="2047"
+	TotalPhysicalMemory="7950"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="2803.2"
+	>
+	<Testing>
+		<StartDateTime>Nov 20 16:42 MSK</StartDateTime>
+		<StartTestTime>1700487766</StartTestTime>
+		<TestList/>
+		<EndDateTime>Nov 20 16:42 MSK</EndDateTime>
+		<EndTestTime>1700487766</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

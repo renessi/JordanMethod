@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -rdynamic CMakeFiles/JordanMethod.dir/main.cpp.o CMakeFiles/JordanMethod.dir/dataCreation.cpp.o CMakeFiles/JordanMethod.dir/JordanMethod.cpp.o -o JordanMethod 
