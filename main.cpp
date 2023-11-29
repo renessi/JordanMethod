@@ -19,15 +19,14 @@ int main(int argc, char* argv[]) {
     }
 
     std::vector<std::vector<double>> A(n, std::vector<double> (n));
-    std::vector<double> rightAnswer(n), b(n), x(n);
+    std::vector<double> b(n), x(n);
     if (argc == 2) {
         createMatrixByFormula(A);
     }
     else {
         readMatrix(argv[2], A);
     }
-    getRightAnswer(rightAnswer);
-    fillInB(A, b, rightAnswer);
+    fillInB(A, b);
 
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 0; j < n; ++j)
@@ -46,7 +45,6 @@ int main(int argc, char* argv[]) {
         std::cout << "p.6 Print result:" << std::endl;
         printResult(x, m);
         std::cout << "p.7 Norm of Ax - b: " << residualNorm(A, b, x) << std::endl;
-        std::cout << "p.8 Norm of Error: " << normOfError(rightAnswer, x) << std::endl;
     }
     std::cout << "p.9 System solution time: " << endTime - startTime << std::endl;
 

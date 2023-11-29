@@ -43,29 +43,15 @@ bool Jordan(const size_t n, std::vector<std::vector<double>>& A,
         if (!findMainElement(A, row, column, k, rowInd, colInd, n)) {
             return false;
         }
-//        std::cout << "! " << rowInd[k] << ' ' << rowInd[row] << std::endl;
-//        std::cout << "! " << colInd[k] << ' ' << colInd[column] << std::endl;
         std::swap(rowInd[k], rowInd[row]);
         std::swap(colInd[k], colInd[column]);
 
         double mainElement = A[rowInd[k]][colInd[k]];
 
-//        auto foo = [&]() {
-//            std::cout << "Main: " << mainElement << std::endl;
-//            for (row = 0; row < n; ++row) {
-//                for (column = 0; column < n; ++column)
-//                    std::cout << A[rowInd[row]][colInd[column]] << ' ';
-//                std::cout << b[colInd[row]] << std::endl;
-//            }
-//        };
-//        foo();
-
         for (size_t j = k; j < n; ++j) {
             A[rowInd[k]][colInd[j]] /= mainElement;
         }
         b[rowInd[k]] /= mainElement;
-
-//        foo();
 
         for (size_t i = 0; i < n; ++i) {
             if (i == k) {
@@ -79,15 +65,11 @@ bool Jordan(const size_t n, std::vector<std::vector<double>>& A,
             }
             b[rowInd[i]] -= Aik * b[rowInd[k]];
         }
-
-//        foo();
     }
 
     for (size_t i = 0; i < n; ++i) {
         x[colInd[i]] = b[rowInd[i]];
     }
-//    for (size_t i = 0; i < n; ++i)
-//        std::cout << rowInd[i] << ' ' << colInd[i] << std::endl;
 
     return true;
 }
@@ -108,12 +90,4 @@ double residualNorm(const std::vector<std::vector<double>>& A, const std::vector
         v[i] -= b[i];
     }
     return normOfVector(v);
-}
-
-double normOfError(const std::vector<double>& rightAnswer, const std::vector<double>& x) {
-    std::vector<double> difference(x.size(), 0.);
-    for (size_t i = 0; i < x.size(); ++i) {
-        difference[i] = x[i] - rightAnswer[i];
-    }
-    return normOfVector(difference);
 }
