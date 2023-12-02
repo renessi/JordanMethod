@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
 
     size_t n;
     n = strtoul(argv[1], nullptr, 10);
-    const size_t m = n;
+    const size_t m = 5;
     const size_t countThreads = 1;
     if (n == 0) {
         std::cerr << "The first argument is not a positive integer." << std::endl;
@@ -30,11 +30,11 @@ int main(int argc, char* argv[]) {
     }
     fillInB(A, b);
 
-    for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < n; ++j)
-            std::cout << A[i][j] << ' ';
-        std::cout << b[i] << std::endl;
-    }
+//    for (size_t i = 0; i < n; ++i) {
+//        for (size_t j = 0; j < n; ++j)
+//            std::cout << A[i][j] << ' ';
+//        std::cout << b[i] << std::endl;
+//    }
 
     size_t startTime = clock();
     bool matrixIsNonSingular = Jordan(n, A, b, x);
@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 
         std::cout << "p.7 Norm of Ax - b: " << resNorm << std::endl;
         std::cout << "Time for residual norm: " <<
-        std::chrono::duration_cast<std::chrono::milliseconds>(time1 - time2).count() << std::endl;
+        std::chrono::duration_cast<std::chrono::milliseconds>(time2 - time1).count() << std::endl;
     }
     std::cout << "p.9 System solution time: " << endTime - startTime << std::endl;
 
