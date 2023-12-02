@@ -3,14 +3,6 @@
 #include <thread>
 #include "JordanMethod.h"
 
-double normOfVector (const std::vector<double>& v) {
-    double result = 0;
-    for (double i : v) {
-        result = std::max(result, i < 0 ? -i : i);
-    }
-    return result;
-}
-
 // return false if A is singular
 bool findMainElement(std::vector<std::vector<double>> &A, size_t& x, size_t& y, size_t k,
                      size_t* rowInd, size_t* colInd, size_t n) {
