@@ -5,7 +5,7 @@
 
 double formulaToCreateMatrix(size_t i, size_t j) {
     int x = (int) i, y = (int) j;
-    return (double) (x + y);
+    return i == j ? 1. : 0.;
 }
 
 void readMatrix(const char* fileName, std::vector<std::vector<double>>& A) {
@@ -42,18 +42,11 @@ void createMatrixByFormula(std::vector<std::vector<double>>& A) {
     }
 }
 
-void getRightAnswer(std::vector<double>& rightAnswer) {
-    for (size_t i = 0; i < rightAnswer.size(); ++i) {
-        rightAnswer[i] = i % 2 ? 0. : 1.;
-    }
-}
-
-void fillInB(const std::vector<std::vector<double>>& A, std::vector<double>& b,
-             const std::vector<double>& rightAnswer) {
+void fillInB(const std::vector<std::vector<double>>& A, std::vector<double>& b) {
     for (size_t i = 0; i < b.size(); ++i) {
         b[i] = 0.;
         for (size_t j = 0; j < A[i].size(); ++j) {
-            b[i] += A[i][j] * rightAnswer[j];
+            b[i] += A[i][j] * (j % 2 ? 0 : 1);
         }
     }
 }

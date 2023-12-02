@@ -1,14 +1,7 @@
 #include <vector>
 #include <iostream>
+#include <thread>
 #include "JordanMethod.h"
-
-double normOfVector (const std::vector<double>& v) {
-    double result = 0;
-    for (double i : v) {
-        result = std::max(result, i < 0 ? -i : i);
-    }
-    return result;
-}
 
 // return false if A is singular
 bool findMainElement(std::vector<std::vector<double>> &A, size_t& x, size_t& y, size_t k,
@@ -43,29 +36,15 @@ bool Jordan(const size_t n, std::vector<std::vector<double>>& A,
         if (!findMainElement(A, row, column, k, rowInd, colInd, n)) {
             return false;
         }
-//        std::cout << "! " << rowInd[k] << ' ' << rowInd[row] << std::endl;
-//        std::cout << "! " << colInd[k] << ' ' << colInd[column] << std::endl;
         std::swap(rowInd[k], rowInd[row]);
         std::swap(colInd[k], colInd[column]);
 
         double mainElement = A[rowInd[k]][colInd[k]];
 
-//        auto foo = [&]() {
-//            std::cout << "Main: " << mainElement << std::endl;
-//            for (row = 0; row < n; ++row) {
-//                for (column = 0; column < n; ++column)
-//                    std::cout << A[rowInd[row]][colInd[column]] << ' ';
-//                std::cout << b[colInd[row]] << std::endl;
-//            }
-//        };
-//        foo();
-
         for (size_t j = k; j < n; ++j) {
             A[rowInd[k]][colInd[j]] /= mainElement;
         }
         b[rowInd[k]] /= mainElement;
-
-//        foo();
 
         for (size_t i = 0; i < n; ++i) {
             if (i == k) {
@@ -79,15 +58,11 @@ bool Jordan(const size_t n, std::vector<std::vector<double>>& A,
             }
             b[rowInd[i]] -= Aik * b[rowInd[k]];
         }
-
-//        foo();
     }
 
     for (size_t i = 0; i < n; ++i) {
         x[colInd[i]] = b[rowInd[i]];
     }
-//    for (size_t i = 0; i < n; ++i)
-//        std::cout << rowInd[i] << ' ' << colInd[i] << std::endl;
 
     return true;
 }
@@ -98,22 +73,43 @@ void printResult(const std::vector<double>& x, size_t m) {
     }
 }
 
-double residualNorm(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
-                    const std::vector<double>& x) {
-    std::vector<double> v(x.size(), 0.);
-    for (size_t i = 0; i < A.size(); ++i) {
-        for (size_t j = 0; j < A.size(); ++j) {
-            v[i] += A[i][j] * x[j];
+void calcError(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
+               const std::vector<double>& x, double& error, const size_t startRow, const size_t endRow) {
+    error = 0.;
+    for (size_t i = startRow; i < endRow; ++i) {
+        double tmpError = 0.;
+        for (size_t j = 0; j < b.size(); ++j) {
+            tmpError += A[i][j] * b[j];
         }
-        v[i] -= b[i];
+        tmpError -= x[i];
+        error += std::abs(tmpError);
     }
-    return normOfVector(v);
 }
 
-double normOfError(const std::vector<double>& rightAnswer, const std::vector<double>& x) {
-    std::vector<double> difference(x.size(), 0.);
-    for (size_t i = 0; i < x.size(); ++i) {
-        difference[i] = x[i] - rightAnswer[i];
+double residualNorm(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
+                    const std::vector<double>& x, const size_t countThreads) {
+    std::vector<double> v(x.size(), 0.);
+
+    std::thread threads[countThreads];
+    size_t startRow[countThreads], endRow[countThreads];
+    double sumErr[countThreads], result = 0.;
+
+    for (size_t i = 0; i < countThreads; ++i) {
+        startRow[i] = i * (x.size() / countThreads);
+        endRow[i] = (i + 1) * (x.size() / countThreads);
     }
-    return normOfVector(difference);
+    endRow[countThreads - 1] = x.size();
+
+    for (size_t i = 0; i < countThreads; ++i) {
+        threads[i] = std::thread(calcError, A, b, x, std::ref(sumErr[i]), startRow[i], endRow[i]);
+    }
+    for (size_t i = 0; i < countThreads; ++i) {
+        threads[i].join();
+    }
+
+    for (size_t i = 0; i < countThreads; ++i) {
+        result += sumErr[i];
+    }
+
+    return result;
 }

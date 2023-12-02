@@ -7,8 +7,6 @@ bool Jordan(size_t n, std::vector<std::vector<double>>& A,
 void printResult(const std::vector<double>& x, size_t m);
 
 double residualNorm(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
-                  const std::vector<double>& x);
-
-double normOfError(const std::vector<double>& rightAnswer, const std::vector<double>& x);
+                  const std::vector<double>& x, size_t countThreads);
 
 #endif //JORDANMETHOD_JORDANMETHOD_H
