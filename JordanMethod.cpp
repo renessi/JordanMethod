@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <thread>
 #include "JordanMethod.h"
 
 double normOfVector (const std::vector<double>& v) {
@@ -80,14 +81,43 @@ void printResult(const std::vector<double>& x, size_t m) {
     }
 }
 
-double residualNorm(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
-                    const std::vector<double>& x) {
-    std::vector<double> v(x.size(), 0.);
-    for (size_t i = 0; i < A.size(); ++i) {
-        for (size_t j = 0; j < A.size(); ++j) {
-            v[i] += A[i][j] * x[j];
+void calcError(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
+               const std::vector<double>& x, double& error, const size_t startRow, const size_t endRow) {
+    error = 0.;
+    for (size_t i = startRow; i < endRow; ++i) {
+        double tmpError = 0.;
+        for (size_t j = 0; j < b.size(); ++j) {
+            tmpError += A[i][j] * b[j];
         }
-        v[i] -= b[i];
+        tmpError -= x[i];
+        error += std::abs(tmpError);
     }
-    return normOfVector(v);
+}
+
+double residualNorm(const std::vector<std::vector<double>>& A, const std::vector<double>& b,
+                    const std::vector<double>& x, const size_t countThreads) {
+    std::vector<double> v(x.size(), 0.);
+
+    std::thread threads[countThreads];
+    size_t startRow[countThreads], endRow[countThreads];
+    double sumErr[countThreads], result = 0.;
+
+    for (size_t i = 0; i < countThreads; ++i) {
+        startRow[i] = i * (x.size() / countThreads);
+        endRow[i] = (i + 1) * (x.size() / countThreads);
+    }
+    endRow[countThreads - 1] = x.size();
+
+    for (size_t i = 0; i < countThreads; ++i) {
+        threads[i] = std::thread(calcError, A, b, x, std::ref(sumErr[i]), startRow[i], endRow[i]);
+    }
+    for (size_t i = 0; i < countThreads; ++i) {
+        threads[i].join();
+    }
+
+    for (size_t i = 0; i < countThreads; ++i) {
+        result += sumErr[i];
+    }
+
+    return result;
 }

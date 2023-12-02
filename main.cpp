@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <chrono>
 #include "dataCreation.h"
 #include "JordanMethod.h"
 
@@ -13,6 +14,7 @@ int main(int argc, char* argv[]) {
     size_t n;
     n = strtoul(argv[1], nullptr, 10);
     const size_t m = n;
+    const size_t countThreads = 1;
     if (n == 0) {
         std::cerr << "The first argument is not a positive integer." << std::endl;
         exit(1);
@@ -44,7 +46,14 @@ int main(int argc, char* argv[]) {
     else {
         std::cout << "p.6 Print result:" << std::endl;
         printResult(x, m);
-        std::cout << "p.7 Norm of Ax - b: " << residualNorm(A, b, x) << std::endl;
+
+        auto time1 = std::chrono::system_clock::now();
+        double resNorm = residualNorm(A, b, x, countThreads);
+        auto time2 = std::chrono::system_clock::now();
+
+        std::cout << "p.7 Norm of Ax - b: " << resNorm << std::endl;
+        std::cout << "Time for residual norm: " <<
+        std::chrono::duration_cast<std::chrono::milliseconds>(time1 - time2).count() << std::endl;
     }
     std::cout << "p.9 System solution time: " << endTime - startTime << std::endl;
 
